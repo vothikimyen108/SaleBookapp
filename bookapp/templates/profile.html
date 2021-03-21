@@ -1,0 +1,146 @@
+{% extends 'index.html' %}
+{% block content %}
+<div class="row">
+  <div class="left" style="background-colo:#fff;">
+      <div class="card">
+          {% if current_user.is_authenticated and current_user.user_role == userrole.KHACHHANG %}
+          <img src="{{ url_for('static', filename=current_user.avatar)}}" alt="Avatar" class="avatar">
+          <h2>{{current_user.name}}</h2>
+          {% else %}
+             <h2>Hãy đăng nhập</h2>
+          {%endif%}
+    </div>
+    <ul id="myMenu">
+      <li>
+        <a href="{{ url_for('profile') }}" class="primary__title">Xem Thông tin cá nhân</a>
+        <a href="{{ url_for('suadiachi') }}" class="primary__title">Thay đổi chỉ</a>
+         <a href="{{ url_for('xemdonhang') }}" class="primary__title">Xem đơn hàng</a>
+      </li>
+    </ul>
+
+  </div>
+    {% block suadiachi%}
+  <div class="right" >
+       <div class="containerpr">
+           	{% if err_msg %}
+        	<span class="alert alert-danger" style="color:red">{{ err_msg }}</span>
+        	{% endif %}
+          <form method="post" action="{{ url_for('profile') }}" enctype="multipart/form-data">
+           {% if current_user.is_authenticated and current_user.user_role == userrole.KHACHHANG %}
+          <div class="row">
+            <div class="col-25">
+              <label for="fname">Họ và tên</label>
+            </div>
+            <div class="col-75">
+              <input type="text" id="fname" name="name" value="{{current_user.name}}">
+                <input type="text" id="fnamee" name="user_id" value="{{current_user.id}}" style="display:none">
+                <input type="text"  name="user_anh" value="{{current_user.avatar}}" style="display:none">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-25">
+              <label >Số điện Thoại </label>
+            </div>
+            <div class="col-75">
+              <input type="text" id="sdt" name="sdt" value="{{current_user.sdt}}">
+            </div>
+          </div>
+            <div class="row">
+            <div class="col-25">
+              <label for="email">Email </label>
+            </div>
+            <div class="col-75">
+              <input type="text" id="email" name="email" value="{{current_user.email}}" readonly>
+            </div>
+          </div>
+              <div class="row">
+            <div class="col-25">
+              <label >Giới Tính </label>
+            </div>
+            <div class="col-75">
+            {% if current_user.gioitinh=="nữ" %}
+             <div class="radio">
+                <input type="radio" id="male" name="gender" value="nam" >
+                <label for="male">Nam</label><br>
+                <input type="radio" id="female" name="gender" value="nữ" checked="checked">
+                <label for="female">Nữ</label><br>
+                <input type="radio" id="other" name="gender" value="khác">
+                <label for="other">Khác</label>
+             {%endif%}
+             {% if current_user.gioitinh=="nam" %}
+             <div class="radio">
+                <input type="radio"  name="gender" value="nam" checked="checked">
+                <label for="male">Nam</label><br>
+                <input type="radio"  name="gender" value="nữ" >
+                <label for="female">Nữ</label><br>
+                <input type="radio"  name="gender" value="khác">
+                <label for="other">Khác</label>
+             {%endif%}
+             {% if current_user.gioitinh=="khác" %}
+             <div class="radio">
+                <input type="radio"  name="gender" value="nam" >
+                <label for="male">Nam</label><br>
+                <input type="radio"  name="gender" value="nữ" >
+                <label for="female">Nữ</label><br>
+                <input type="radio"  name="gender" value="khác" checked="checked">
+                <label for="other">Khác</label>
+             {%endif%}
+          </div>
+          </div>
+
+        </div>
+        <div class="row">
+            <div class="col-25">
+              <label >Ngày Sinh </label>
+            </div>
+            <div class="col-75">
+                <p id="ngaysql" onload="getResult()" style="display:none">{{current_user.ngaysinh}}</p>
+                <p id="ngaysqll" onclick="getResult()"></p>
+              <input type="date" id="mySelect" name="ngaysinh">
+            </div>
+          </div>
+
+           <div class="row">
+            <div class="col-25">
+              <label >Địa chỉ </label>
+            </div>
+            <div class="col-75">
+                <div class="diachi">
+                 {% for d in diachi %}
+                    {%if d.id == current_user.diaChi_id%}
+                        <span>{{d.sonha}},</span>
+                        <span>{{d.phuongxa}},</span>
+                        <span>{{d.quanhuyen}},</span>
+                        <span>{{d.tinhtp}}</span>
+                    {%else%}
+                     {%endif%}
+                {% endfor %}
+                </div>
+          </div>
+        </div>
+            <div class="row">
+            <div class="col-25">
+              <label >Ảnh đại diện</label>
+            </div>
+            <div class="col-75">
+                <input type="file" id="actual-btn" hidden name="file" />
+
+                <!-- our custom upload button -->
+                <label for="actual-btn" class="spanfile">chọn tệp</label>
+
+                <!-- name of file chosen -->
+                <span id="file-chosen"  name="avatar">Up Hình xinh đẹp của bạn nèo</span
+            </div>
+          </div>
+      </div>
+      <div class="row">
+        <input type="submit" value="Cập Nhật">
+      </div>
+  {%endif%}
+  </form>
+</div>
+  </div>
+  </div>
+    {% endblock suadiachi%}
+</div>
+{% endblock content %}

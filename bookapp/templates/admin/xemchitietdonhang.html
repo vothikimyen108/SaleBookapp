@@ -1,0 +1,39 @@
+{% extends 'admin/master.html' %}
+{% block body %}
+{% if err_msg %}
+    <div class="alert alert-danger">{{ err_msg }}</div>
+{% endif %}
+<div class="container-fluid">
+          <div class="container">
+        <h1 class="text-center">
+           Thông Tin đơn hàng
+        </h1>
+        <div>
+        </div>
+        <table class="table" id="myTable">
+            <tr>
+                <th>Sách</th>
+                <th>Số Lượng</th>
+                <th>Đơn Giá</th>
+                <td>Thành Tiền</td>
+            </tr>
+            {% for ct in ctdh %}
+            <tr>
+              {%for s in sach%}
+                {% if ct.sach_id == s.id %}
+                <td>{{s.name}}</td>
+                {%endif%}
+              {% endfor %}
+            <td>{{ct.soluong}}</td>
+              <td>{{ "{:,.1f}".format(ct.dongia) }}</td>
+              <td>{{ "{:,.1f}".format(ct.soluong*ct.dongia) }} </td>
+          </tr>
+            {% endfor %}
+        </table>
+          <br>
+        <h4>Tổng: {{ "{:,.1f}".format(tong) }} Đ</h4>
+        <h4>Địa chỉ: {{dcnh}}</h4>
+</div>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+{% endblock %}
+</div>

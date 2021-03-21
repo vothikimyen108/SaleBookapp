@@ -1,0 +1,120 @@
+{% extends 'index.html' %}
+{% block content %}
+
+
+<div class="row">
+  <div class="left" style="background-colo:#fff;">
+    <h2> Danh Mục</h2>
+    <br>
+    <ul id="myMenu">
+      <li>
+        <a href="{{ url_for('sachList') }}" class="primary__title">Tất cả sản phẩm</a>
+          </li>
+      {% for tl in theloai %}
+          <li>
+        <a href="{{ url_for('sachList', theloai_id=tl.id) }}" class="primary__title">{{tl.name}}</a>
+          </li>
+      {% endfor %}
+                  <a class="badge badge-info"
+               href="#" id="cart-info"></a>
+    </ul>
+    <div class="loc">
+        <h3>Giá</h3>
+        <h4>chọn khoản giá</h4>
+        <form>
+          <div class="input-group">
+            <input pattern="[0-9]*" placeholder="Giá từ" value="0" name="from_price">
+            <span>-</span>
+            <input pattern="[0-9]*" placeholder="Giá đến" value="0" name="to_price">
+            </div>
+            <button data-view-id="search_filter_submit_button" class="btloc" >OK</button>
+        </form>
+    </div>
+  </div>
+
+  <div class="right" >
+    <form>
+    <div class ="inputtimkiem" >
+    <input type="text" name="kw" placeholder="Bạn cần tìm gì vậy?.." >
+      <i class="fas fa-search fa-lg"></i>
+    </div>
+    </form>
+<div class="container">
+  <!-- For demo purpose -->
+<!--  <section class="section latest__products" id="latest">-->
+<!--        <div class="container" data-aos="fade-up" data-aos-duration="1200">-->
+<!--          <div class="glide" id="glide_2">-->
+<!--            <div class="glide__track" data-glide-el="track">-->
+<!--              <ul class="glide__slides latest-center">-->
+
+<!--                <li class="glide__slide">-->
+<!--             {% for s in sach %}-->
+<!--                  <div class="product">-->
+<!--                    <div class="product__header">-->
+<!--                      <img src="{{ url_for('static', filename=s.anh) }}" alt="product">-->
+<!--                    </div>-->
+<!--                    <div class="product__footer">-->
+<!--                      <h3>{{s.name}}</h3>-->
+<!--                      <div class="product__price">-->
+<!--                        <h4>{{ "{:,.1f}".format(s.gia) }}</h4>-->
+<!--                      </div>-->
+<!--                      <a href="{{url_for('sachList')}}"-->
+<!--                       onclick="themGio({{ s.id }}, '{{ s.name }}', {{ s.gia }},1)"><button type="submit" class="product__btn">thêm vào giỏ hàng</button></a>-->
+<!--                    </div>-->
+<!--                    <ul>-->
+<!--                      <li>-->
+<!--                        <a data-tip="Quick View" data-place="left" href="{{url_for('book_detail', sach_id=s.id) }}">-->
+<!--                         <i class="fas fa-eye"></i>-->
+<!--                        </a>-->
+<!--                      </li>-->
+<!--                    </ul>-->
+<!--                  </div>-->
+<!--              {% endfor %}-->
+
+<!--                 </li>-->
+
+
+
+<!--              </ul>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </section>-->
+
+<div class="flex-container" data-aos="fade-up" data-aos-duration="1200">
+      <section class="section latest__products" id="latest">
+
+        <div class="container" data-aos="fade-up" data-aos-duration="1200">
+          <div class="flex-container">
+             {% for s in sach %}
+                  <div class="product" data-aos="fade-up" data-aos-duration="1200">
+                    <div class="product__header">
+                      <img src="{{ url_for('static', filename=s.anh) }}" alt="product">
+                    </div>
+                    <div class="product__footer">
+                      <h3 >{{s.name}}</h3>
+                      <div class="product__price">
+                        <h4>{{ "{:,.1f}".format(s.gia) }}</h4>
+                      </div>
+                      <a href="{{url_for('sachList')}}"
+                       onclick="themGio({{ s.id }}, '{{ s.name }}', {{ s.gia }},1)"><button type="submit" class="product__btn">thêm vào giỏ hàng</button></a>
+                    </div>
+                    <ul>
+                      <li>
+                        <a data-tip="Quick View" data-place="left" href="{{url_for('book_detail', sach_id=s.id) }}">
+                         <i class="fas fa-eye"></i>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+              {% endfor %}
+</div>
+
+        </div>
+      </section>
+    </section>
+</div>
+  </div>
+  </div>
+</div>
+{% endblock content %}

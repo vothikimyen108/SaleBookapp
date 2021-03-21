@@ -1,0 +1,141 @@
+{% extends 'sach.html' %}
+{% block content %}
+
+<section class="section cart__area" xmlns="http://www.w3.org/1999/html">
+            <div class="container">
+                <div class="responsive__cart-area">
+                    <form class="cart__form">
+                        <div class="cart__table table-responsive">
+                            <table width="100%" class="table">
+                                <thead >
+                                    <tr>
+                                        <th style="text-align: center;">Sách</th>
+                                        <th style="text-align: center;">Tên</th>
+                                        <th style="text-align: center;">Giá</th>
+                                        <th style="text-align: center;">Số lượng</th>
+                                        <th style="text-align: center;">Tổng</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% if 'cart' in session %}
+                                    {% for p in session['cart'].values() %}
+                                    <tr>
+                                        <td class="product__thumbnail">
+                                            <a href="#">
+                                                {% for s in sach%}
+                                                    {% if s.name == p.name %}
+                                                      <img src="{{ url_for('static', filename=s.anh) }}" alt="product">
+                                                      {%endif%}
+                                                {% endfor%}
+                                            </a>
+                                        </td>
+                                        <td class="product__name">
+                                            <a href="#">{{ p.name }}</a>
+                                        </td>
+                                        <td class="product__price">
+                                            <div class="price">
+                                                <span class="new__price">{{ "{:,.1f}".format(p.price) }} Đ</span>
+                                            </div>
+                                        </td>
+                                        <td class="product__quantity" >
+                                            <div class="input-counter" style="margin-left:25%">
+                                                 <div class="input-counter">
+                                                  <div>
+                                                    <a class="plus-btn" href="{{url_for('cart')}}" ref="{{url_for('cart')}}" onclick="addToCart({{ p.id }}, '{{ p.name }}',{{ p.price}},-1)">
+                                                        <i class="fas fa-minus"></i>
+                                                    </a>
+                                                      <input type="number"  value="{{ p.quantity }}" class="counter-btn" readonly>
+                                                    <a class="plus-btn" href="{{url_for('cart')}}" onclick="addToCart({{ p.id }}, '{{ p.name }}',{{ p.price}},1)">
+                                                        <i class="fas fa-plus"></i>
+                                                    </a>
+                                                  </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="product__subtotal">
+                                            <div class="price">
+                                                <span class="new__price">{{ "{:,.1f}".format(p.price*p.quantity)}} Đ</span>
+                                            </div>
+                                            <a href="{{url_for('delete_product',id =p.id) }}" class="remove__cart-item">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                  {% endfor %}
+                                {% endif %}
+                            </table>
+                        </div>
+                    </form>
+                        <div class="cart-btns">
+                            <div class="continue__shopping">
+                                <a href="{{url_for('sachList')}}">Tiếp tục mua sắm</a>
+                            </div>
+                            <div class="check__shipping">
+                                {% if cart_info.total_quantity == 0 %}
+                                    <p>Không có sản phẩm nào!</p>
+                                {% else %}
+                                    <input type="submit" value="Đặt hàng" class="submit" id="dathang" onclick="hienThanhToan()"/>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% if err_msg %}
+                        <span class="alert alert-danger" >{{ err_msg }}</span>
+                        {% endif %}
+                    {% if current_user.is_authenticated and current_user.user_role == userrole.KHACHHANG %}
+                    <form method="post" action="{{ url_for('cart') }}" style="display:none" id="formthanhtoan">
+                    <div class="thongtin">
+                        <div class="cart__totals">
+                            <h3>Địa chỉ nhận hàng</h3>
+                            <ul>
+                                <li>
+                                    <p style="text-aline=left">Tên:</p>
+                                    <input type="text" name="name" value="{{current_user.name}}">
+                                    <input type="text" name="userid" value="{{current_user.id}}" style="display:none">
+                                </li>
+                                <li>
+                                  <p>Số điện thoại</p>
+                                    <input type="number" name="sdt" value="{{current_user.sdt}}">
+                                </li>
+                                  <li>
+                                  <p>Địa chỉ</p>
+                                      {% for d in diachi %}
+                                    {%if d.id == current_user.diaChi_id%}
+                                        <input type="text" name="diachi" value="{{d.sonha+ d.phuongxa +d.quanhuyen +d.tinhtp }}">
+                                    {%else%}
+                                     {%endif%}
+                                {% endfor %}
+                                </li>
+                            </ul>
+                        </div>
+                            <div class="cart__totals">
+                            <h3>Thông Tin Đặt hàng</h3>
+                            <ul class="test">
+                                <li>
+                                    Tổng tiền
+                                    <span class="new__price">{{ "{:,.1f}".format(cart_info.total_amount) }} Đ</span>
+                                </li>
+                                <li>
+                                    Tổng sản phẩm
+                                    <span>{{ cart_info.total_quantity }}</span>
+                                </li>
+                                <li class="thongtinn">
+                                    <h3>Thanh toán momo</h3>
+                                    <input id="r11" type="radio" name="thanhtoan" value="momo" />
+                                </li>
+                                <li class="thongtinn">
+                                    <h3>Thanh toán khi nhận hàng</h3>
+                                    <input id="r1" type="radio" name="thanhtoan" value="tienmat" checked/>
+                                </li>
+                            </ul>
+                            <input type="submit" value="Xác Nhận ">
+                        </div>
+                    </div>
+                    </form>
+                </div>
+                {%else %}
+                    <p>Hãy đăng nhập để mua hàng!!!!</p>
+                {% endif %}
+           </div>
+        </section>
+{%endblock content%}

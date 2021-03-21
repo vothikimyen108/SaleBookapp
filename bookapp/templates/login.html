@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>signinup</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/login.css') }}">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700,800&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body >
+  <div class="cont">
+      {% if err_msg %}
+        <div class="alert alert-danger">
+            {{ err_msg }}
+        </div>
+        {% endif %}
+
+      <form method="post" action="{{ url_for('login_usr') }}">
+       <div class="form sign-in">
+          <h2>Đăng Nhập</h2>
+          <label>
+            <span>Email</span>
+            <input type="username" name="username">
+          </label>
+          <label>
+            <span>Mật khẩu</span>
+            <input type="password" name="password">
+          </label>
+          <button class="submit"  id="btsubmit">Đăng nhập</button>
+          <p class="forgot-pass">Quên mật khẩu ?</p>
+        </form>
+      <div class="flaghasacc">
+        <div class="layer">
+        <div class="text">
+          <h2>YU XIN CHÀO</h2>
+          <p>Đăng kí để trở thành viên của YU</p>
+        </div>
+        <button class="noacc" type="submit">Tạo tài khoản</button>
+      </div>
+      </div>
+   </div>
+
+    <div class="sub-cont">
+      <div class="img">
+        <div class="img-text m-up">
+          <h2>YU XIN CHÀO</h2>
+          <p>Đăng kí để trở thành viên của YU</p>
+        </div>
+        <div class="img-text m-in">
+          <h2>Xin chào!</h2>
+          <p>Nếu bạn đã có tài khoản hay đăng nhập, chúng tôi rất nhớ bạn</p>
+        </div>
+        <div class="img-btn">
+          <span class="m-up">Đăng kí</span>
+          <span class="m-in">Đăng nhập</span>
+        </div>
+      </div>
+      <div class="form sign-up">
+        <h2>Đăng kí</h2>
+        <form method="post" action="{{ url_for('register') }}">
+         <div class="childsign">
+               <div class="supsign-1">
+                <label>
+                  <span>Họ Và Tên</span>
+                  <input type="text" name="name">
+                </label>
+                <label>
+                  <span>Tên đăng nhập</span>
+                  <input type="input" name="username">
+                </label>
+                <label>
+                  <span>Mật khẩu</span>
+                  <input type="password" name ="password">
+                </label>
+                <label>
+                  <span>Nhập lại mật khẩu</span>
+                  <input type="password" name = "confirm-password">
+                </label>
+              </div>
+              <div class="supsin-2">
+                <label>
+                  <span>Email</span>
+                  <input type="email" name = "email">
+                </label>
+                <label>
+                  <span>Giới tính</span>
+                  <div class="radio">
+                    <input type="radio" id="male" name="gender" value="nam">
+                    <label for="male">Nam</label><br>
+                    <input type="radio" id="female" name="gender" value="nữ">
+                    <label for="female">Nữ</label><br>
+                    <input type="radio" id="other" name="gender" value="khác">
+                    <label for="other">Khác</label>
+                  </div>
+                </label>
+                <label>
+                  <span>Ngày sinh</span>
+                  <input type="date" id="birthday" name="ngaysinh">
+                </label>
+                <label>
+                  <span>Số điện thoại</span>
+                  <input type="text" name="sdt">
+                </label>
+              </div>
+        </div>
+            <div class ="canhgiua">
+            <input type="submit" value="Đăng ký" class="submit" id="ipsubmit"/>
+            </div>
+        </form>
+        <div class="flaghasacc">
+          <div class="layer">
+          <div class="text">
+            <h2>Xin chào!</h2>
+            <p>Nếu bạn đã có tài khoản hay đăng nhập</p>
+            <span>chúng tôi rất nhớ bạn!</span>
+          </div>
+          <button class="acc" type="button">đăng nhập</button>
+        </div>
+        </div>
+    </div>
+    </div>
+  </div>
+<script type="text/javascript" src="{{ url_for('static', filename='js/login.js') }}"></script>
+</body>
+</html>

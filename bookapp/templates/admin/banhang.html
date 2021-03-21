@@ -1,0 +1,140 @@
+{% extends 'admin/master.html' %}
+
+{% block body %}
+{% if err_msg %}
+    <div class="alert alert-danger">{{ err_msg }}</div>
+{% endif %}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-3 col-md-6">
+          <div class="container">
+        <h1 class="text-center">
+            Bán Hàng
+            <a class="badge badge-info"
+               href="" id="cart-info"></a>
+        </h1>
+        <div>
+                <div class="form-group">
+                    <input class="form-control"
+                           name="kw"
+                           placeholder="Nhập từ khóa đề tìm..." id="myInput"/>
+                </div>
+        </div>
+        <table class="table" id="myTable">
+            <tr>
+                <th>Id</th>
+                <th>Tên</th>
+                <th>Số lượng</th>
+                <th>Giá</th>
+                <th></th>
+            </tr>
+            {% for s in sach %}
+            <tr>
+                <td>{{ s.id }}</td>
+                <td>
+                    <a href="">{{ s.name }}</a>
+                </td>
+                <td>{{ s.soluong }}</td>
+                <td>{{ "{:,.1f}".format(s.gia) }} VNĐ</td>
+                <td>
+                    <a href=""
+                       onclick="themGio({{ s.id }}, '{{ s.name }}', {{ s.gia }},1)">Thêm</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    </div>
+    <div class="col-sm-9 col-md-6 text-box">
+        <div class="container">
+        <h1 class="text-center">
+             HÓA ĐƠN YU BOOK
+            <a class="badge badge-info"
+               href=""></a>
+        </h1>
+         <p name ="userid">Nhân Viên: {{current_user.name}} </p>
+         <p>Ngày:{{today}} </p>
+        <p>Đơn hàng: {{iddonhangcuoi.id+1}} </p>
+        <p>Dịa Chỉ: 371, Nguyễn Kiệm,Phường 3,Gò Vấp,Hồ Chí Minh </p>
+        <div>
+        </div>
+        <form method="post" action="{{ url_for('banhang.banhang') }}">
+        <table class="table " >
+            <tr>
+                <th>Id</th>
+                <th>Tên</th>
+                <th>Giá</th>
+                <th>Số lượng</th>
+            </tr>
+             {% if 'cart' in session %}
+            {% for p in session['cart'].values() %}
+            <tr>
+                <td>{{ p.id }}</td>
+               {% for s in sach%}
+                {% if s.name == p.name %}
+                    <td>{{s.name}}</td>
+                {%endif%}
+                {% endfor%}
+                <td>{{ "{:,.1f}".format(p.price) }} Đ</td>
+                <td>
+                   {{p.quantity}}
+                </td>
+                <td>
+                    <a href="{{url_for('delete_productadmin',id =p.id) }}" class="remove__cart-item"/>
+                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+  <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+</svg>
+                </td>
+            </tr>
+            {% endfor %}
+        {% endif %}
+        </table>
+         <div class="form-group">
+            <p>Tổng Tiền:{{ "{:,.1f}".format(cart_info.total_amount) }}  </p>
+             <p>Tổng sản phẩm: {{ cart_info.total_quantity }}</p>
+        </div>
+
+        <div class="form-group">
+               <a href="{{ url_for('banhang.banhang') }}"> <input type="submit"
+                       value="In Hóa Đơn"
+                       class="btn btn-danger" /></a>
+        </div>
+        </form>
+    </div>
+    </div>
+  </div>
+</div>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+
+function addToCart(productId, productName, price,quantity) {
+    fetch('/api/cart', {
+        method: 'POST',
+        body: JSON.stringify({
+            "id": productId,
+            "name": productName,
+            "price": price,
+            "quantity":quantity
+        }),
+        headers: {
+            "Content-Type": 'application/json'
+        }
+    }).then(res => res.json()).then(data => {
+      })
+}
+function themGio(id,name,gia,sl)
+{
+    addToCart(id,name,gia,sl)
+
+}
+</script>
+{% endblock %}

@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&display=swap" rel="stylesheet" />
+
+  <link rel="shortcut icon" href="./images/favicon.ico" type="image/x-icon" />
+
+  <!-- Carousel -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.4.1/css/glide.core.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.4.1/css/glide.theme.min.css
+">
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+  <link href="{{ url_for('static', filename='fontawesome-free-5.15.1-web/css/all.css') }}" rel="stylesheet">
+  <!-- Custom StyleSheet -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
+
+  <title>YU BOOK</title>
+</head>
+
+<body onload="getResult()" >
+
+  <!-- Header -->
+  <header id="header" class="header">
+    <div class="navigation">
+      <div class="container">
+        <nav class="nav">
+          <div class="nav__hamburger">
+            <i class="fas fa-bars"></i>
+          </div>
+
+          <div class="nav__logo">
+            <a href="/" class="scroll-link">
+              YU BOOK
+            </a>
+          </div>
+
+          <div class="nav__menu">
+            <div class="menu__top">
+              <span class="nav__category">YU BOOk</span>
+              <a href="#" class="close__toggle">
+                <i class="fas fa-times"></i>
+              </a>
+            </div>
+            <ul class="nav__list">
+              <li class="nav__item">
+                <a href="{{url_for('index')}}" class="nav__link ">Trang Chủ</a>
+              </li>
+              <li class="nav__item">
+                <a href="{{ url_for('sachList') }}" class="nav__link ">Sản Phẩm</a>
+              </li>
+              {% if current_user.is_authenticated and current_user.user_role == userrole.KHACHHANG %}
+              <span style="margin:0">Hi!</span>
+              <li class="nav__item">
+                <a href="{{url_for('profile')}}" class="nav__link " >{{current_user.name}}</a>
+              </li>
+            </a>
+              {% else %}
+              <li class="nav__item">
+                <a href="{{ url_for('login_usr') }}" class="nav__link " >Đăng nhập</a>
+              </li>
+              {% endif %}
+            </ul>
+          </div>
+
+          <div class="nav__icons">
+            <a href="{{url_for('profile')}}" class="icon__item">
+              <div class="icon__user">
+                <i class="fas fa-user"></i>
+              </div>
+            </a>
+
+
+            {% if current_user.is_authenticated and current_user.user_role == userrole.KHACHHANG %}
+            <a href="{{ url_for('logout_usr')}}" class="icon__item">
+              <div class="icon__user">
+               <i class="fas fa-sign-out-alt"></i>
+              </div>
+             </a>
+            {% endif %}
+
+            <a href="{{url_for('cart')}}" class="icon__item">
+              <div class="icon__cart">
+                <i class="fas fa-shopping-cart"></i>
+              </div>
+              <span id="cart__total" >{{ cart_info.total_quantity }}</span>
+            </a>
+
+          </div>
+        </nav>
+      </div>
+    </div>
+    {% block content %}
+    <!-- Hero -->
+    <div class="hero">
+      <div class="glide" id="glide_1">
+        <div class="glide__track" data-glide-el="track">
+          <ul class="glide__slides">
+            <li class="glide__slide">
+              <div class="hero__center">
+              <div class="hero__center">
+                <div class="hero__left">
+                  <span>Sản phẩm mới 2020</span>
+                  <h1>Sách dành cho bạn</h1>
+                  <p>Những cuốn sách hay nhất mọi thời đại</p>
+                  <a href="{{ url_for('sachList') }}"><button class="hero__btn">Xem thêm</button></a>
+                </div>
+                <div class="hero__right">
+                  <div class="hero__img-container">
+                    <img class="banner_01" src="{{ url_for('static', filename='images/sach/bn4.jpg')}}" alt="banner2" />
+                  </div>
+                </div>
+              </div>
+              </div>
+            </li>
+            <li class="glide__slide">
+              <div class="hero__center">
+                <div class="hero__left">
+                  <span>Sản phẩm mới 2020</span>
+                  <h1>Sách dành cho bạn</h1>
+                  <p>Những cuốn sách hay nhất mọi thời đại</p>
+                  <a href="{{ url_for('sachList') }}"><button class="hero__btn">Xem Thêm</button></a>
+                </div>
+                <div class="hero__right">
+                  <img class="banner_02" src="{{ url_for('static', filename='images/sach/bn3.jpg')}}" alt="banner2" />
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="glide__bullets" data-glide-el="controls[nav]">
+          <button class="glide__bullet" data-glide-dir="=0"></button>
+          <button class="glide__bullet" data-glide-dir="=1"></button>
+        </div>
+
+        <div class="glide__arrows" data-glide-el="controls">
+          <button class="glide__arrow glide__arrow--left" data-glide-dir="<">
+            <div>
+              <i class="fas fa-arrow-left"></i>
+            </div>
+          </button>
+          <button class="glide__arrow glide__arrow--right" data-glide-dir=">">
+            <div>
+              <i class="fas fa-arrow-right"></i>
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+  <!-- End Header -->
+
+  <!-- Main -->
+  <main id="main">
+    <div class="container">
+      <!-- Collection -->
+      <section id="collection" class="section collection">
+        <div class="collection__container" data-aos="fade-up" data-aos-duration="1200">
+          <div class="collection__box">
+            <div class="img__container">
+              <img class="collection_02" src="{{ url_for('static', filename='images/index/anh4.jpg')}}" alt="">
+            </div>
+            <div class="collection__content">
+              <div class="collection__data">
+                <span>Sách mới</span>
+                <h1>YU BOOK</h1>
+                <a href="{{ url_for('sachList') }}">Xem thêm</a>
+              </div>
+            </div>
+          </div>
+          <div class="collection__box">
+            <div class="img__container">
+              <img class="collection_01" src="{{ url_for('static', filename='images/index/anh6.jpg')}}" alt="">
+            </div>
+            <div class="collection__content">
+              <div class="collection__data">
+                <span>Sách mới</span>
+                <h1>YU BOOK</h1>
+                <a href="{{ url_for('sachList') }}">Xem Thêm</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+      <!-- Latest Products -->
+      <section class="section latest__products" id="latest">
+        <div class="title__container">
+          <div class="section__title active" data-id="Latest Products">
+            <h1 class="primary__title">Sản Phẩm Mới</h1>
+          </div>
+        </div>
+        <div class="container" data-aos="fade-up" data-aos-duration="1200">
+          <div class="flex-container">
+             {% for s in sach %}
+                {%if s.id<=16%}
+                  <div class="product" data-aos="fade-up" data-aos-duration="1200">
+                    <div class="product__header">
+                      <img src="{{ url_for('static', filename=s.anh) }}" alt="product">
+                    </div>
+                    <div class="product__footer">
+                      <h3 >{{s.name}}</h3>
+                      <div class="product__price">
+                        <h4>{{ "{:,.1f}".format(s.gia) }}</h4>
+                      </div>
+                      <a href="{{url_for('sachList')}}"
+                       onclick="themGio({{ s.id }}, '{{ s.name }}', {{ s.gia }},1)"><button type="submit" class="product__btn">thêm vào giỏ hàng</button></a>
+                    </div>
+                    <ul>
+                      <li>
+                        <a data-tip="Quick View" data-place="left" href="{{url_for('book_detail', sach_id=s.id) }}">
+                         <i class="fas fa-eye"></i>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+            {%endif%}
+              {% endfor %}
+</div>
+
+        </div>
+      </section>
+    </section>
+
+    <!-- Facility Section -->
+    <section class="facility__section section" id="facility">
+      <div class="container">
+        <div class="facility__contianer" data-aos="fade-up" data-aos-duration="1200">
+          <div class="facility__box">
+            <div class="facility-img__container">
+              <i class="fas fa-plane-departure fa-2x"></i>
+            </div>
+            <p>MIỄN PHÍ GIAO HÀNG</p>
+          </div>
+
+          <div class="facility__box">
+            <div class="facility-img__container">
+                <i class="far fa-id-card fa-2x"></i>
+            </div>
+            <p>100% HOÀN TIỀN</p>
+          </div>
+
+          <div class="facility__box">
+            <div class="facility-img__container">
+              <i class="fab fa-cc-visa fa-2x"></i>
+            </div>
+            <p>THANH TOÁN ONLINE</p>
+          </div>
+
+          <div class="facility__box">
+            <div class="facility-img__container">
+              <i class="fas fa-blog fa-2x"></i>
+            </div>
+            <p>24/7 ONLINE</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    </div>
+
+    <!-- Testimonial Section -->
+    <section class="section testimonial" id="testimonial">
+      <div class="testimonial__container">
+        <div class="glide" id="glide_4">
+          <div class="glide__track" data-glide-el="track">
+            <ul class="glide__slides">
+              <li class="glide__slide">
+                <div class="testimonial__box">
+                  <div class="client__image">
+                    <img src="{{ url_for('static', filename='images/index/profile.jpg')}}" alt="profile">
+                  </div>
+                  <p>Đừng bao giờ mượn sách, hãy mua sách của chúng tôi vửa rẻ vừa thơm</p>
+                  <div class="client__info">
+                    <h3>Kim Yến</h3>
+                    <span>Nhà sáng lập YU BOOK</span>
+                  </div>
+                </div>
+              </li>
+              <li class="glide__slide">
+                <div class="testimonial__box">
+                  <div class="client__image">
+                    <img src="{{ url_for('static', filename='images/index/pro2.jpg')}}" alt="profile">
+                  </div>
+                  <p>Người biết đọc nắm trong tay sức mạnh để khuếch đại bản thân mình, để nhân lên những cách mình tồn tại, để lấp đầy cuộc đời mình một cách đáng kể và thú vị.</p>
+                  <div class="client__info">
+                    <h3>Aldous Huxley</h3>
+                    <span>Nhà văn</span>
+                  </div>
+                </div>
+              </li>
+              <li class="glide__slide">
+                <div class="testimonial__box">
+                  <div class="client__image">
+                    <img src="{{ url_for('static', filename='images/index/pro3.jpg')}}" alt="profile">
+                  </div>
+                  <p>Lất cả những gì con người làm, nghĩ hoặc trở thành: được bảo tồn một cách kỳ diệu trên những trang sách..</p>
+                  <div class="client__info">
+                    <h3>Thomas Carlyle</h3>
+                    <span>Nhà triết học</span>
+                  </div>
+                </div>
+
+              </li>
+              <li class="glide__slide">
+                <div class="testimonial__box">
+                  <div class="client__image">
+                    <img src="{{ url_for('static', filename='images/index/pro4.jpg')}}" alt="">
+                  </div>
+                  <p>Việc đọc rất quan trọng. Nếu bạn biết cách đọc, cả thế giới sẽ mở ra cho bạn.</p>
+                  <div class="client__info">
+                    <h3>Barack Obama</h3>
+                    <span>Cựu tổng thống hoa kì</span>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="glide__bullets" data-glide-el="controls[nav]">
+            <button class="glide__bullet" data-glide-dir="=0"></button>
+            <button class="glide__bullet" data-glide-dir="=1"></button>
+            <button class="glide__bullet" data-glide-dir="=2"></button>
+            <button class="glide__bullet" data-glide-dir="=3"></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!--New Section  -->
+
+
+    <!-- NewsLetter -->
+    <section class="section newsletter" id="contact">
+      <div class="container">
+        <div class="newsletter__content">
+          <div class="newsletter__data">
+            <h3>Đăng Kí</h3>
+            <p>Bạn nhận được một món quà khi đăng kí</p>
+          </div>
+          <form action="#">
+            <input type="email" placeholder="Nhập đỉa chỉ" class="newsletter__email">
+            <a class="newsletter__link" href="#">Đăng kí</a>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+      {% endblock content %}
+  <!-- End Main -->
+
+  <!-- Footer -->
+  <footer id="footer" class="section footer">
+    <div class="container">
+      <div class="footer__top">
+        <div class="footer-top__box">
+          <h3>HỔ TRỢ</h3>
+          <a href="#">Giao hàng</a>
+          <a href="#">Tặng quà</a>
+          <a href="#">Ghi nợ</a>
+        </div>
+        <div class="footer-top__box">
+          <h3>Thông Tin</h3>
+          <a href="#">Chúng tôi</a>
+          <a href="#">Chính sách bảo vệ</a>
+          <a href="#">Bản đồ</a>
+        </div>
+        <div class="footer-top__box">
+          <h3>HỢP TÁC</h3>
+          <a href="#">NXB Kim đồng</a>
+          <a href="#">NXB Kim Yến</a>
+          <a href="#">NXB book</a>
+        </div>
+        <div class="footer-top__box">
+          <h3>LIÊN LẠC</h3>
+          <div>
+            <span>
+                <i class="fas fa-street-view"></i>
+            </span>
+            317, Nguyễn Kiệm ,p3, gò vấp
+          </div>
+          <div>
+            <span>
+            <i class="fas fa-envelope-open-text"></i>
+            </span>
+            vothikinyen2k@gmail.com
+          </div>
+          <div>
+            <span>
+            <i class="fas fa-phone-volume"></i>
+            </span>
+            0945320117
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <div class="footer-bottom__box">
+
+      </div>
+      <div class="footer-bottom__box">
+
+      </div>
+    </div>
+    </div>
+  </footer>
+  <!-- End Footer -->
+
+  <!-- PopUp -->
+
+  <!-- Go To -->
+
+  <a href="#header" class="goto-top scroll-link">
+    <i class="fas fa-arrow-up fa-lg"></i>
+  </a>
+		<div class="goto">
+			<div ><img src="{{ url_for('static', filename='images/index/facebook.png')}}" alt="anh"></div>
+			<div ><img src="{{ url_for('static', filename='images/index/instagram.png')}}" alt="anh"></div>
+			<div><img class="di" src="{{ url_for('static', filename='images/index/up-arrow.png')}}" alt="anh"></div>
+		</div>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+  <script>
+    $(document).ready(function(){
+    $("img.di").hide();
+    $(window).scroll(function(){
+        if($("html,body").scrollTop()>60)
+            $("img.di").show("fast");
+        else
+            $("img.di").hide("fast");
+    })
+    $("img.di").click(function()
+             {
+                $("html,body").animate({scrollTop:0},200);
+             })
+})
+  </script>
+  <!-- Glide Carousel Script -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.4.1/glide.min.js"></script>
+  <!-- Animate On Scroll -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <!-- Custom JavaScript -->
+  <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/slider.js') }}"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'/>
+<script src='https://cdn.jsdelivr.net/gh/vietblogdao/js/districts.min.js'/>
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.0.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,116 @@
+{% extends 'profile.html' %}
+{% block suadiachi %}
+
+      <div class="right" >
+        <div class="containerpr">
+			{% if err_msg %}
+        	<span class="alert alert-danger" style="color:red">{{ err_msg }}</span>
+        	{% endif %}
+          <form action="{{ url_for('suadiachi') }}" method="post">
+          <div class="row">
+            <div class="col-25">
+              <label for="fname">Số nhà</label>
+            </div>
+            <div class="col-75">
+              <input type="text" id="fname" name="sonha" placeholder="">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-25">
+              <label >Phường/xã </label>
+            </div>
+            <div class="col-75">
+              <input type="text" id="sdt" name="phuongxa" placeholder="">
+				<input type="text"  name="user_diachi" value="{{current_user.diaChi_id}}" style="display:none">
+            </div>
+          </div>
+			<div class="row">
+            <div class="col-25">
+              <label >Phường/xã </label>
+            </div>
+            <div class="col-75">
+              <input type="text"  name="quanhuyen" placeholder="">
+				<input type="text"  name="user_diachi" value="{{current_user.diaChi_id}}" style="display:none">
+            </div>
+          </div>
+            <div class="row">
+            <div class="col-25">
+              <label >Tỉnh/Thành Phố </label>
+            </div>
+            <div class="col-75">
+                   <select class="sdselect" name="tinhtp">
+                        <option>An Giang</option>
+						<option>Bà Rịa - Vũng Tàu</option>
+						<option>Bắc Giang</option>
+						<option>Bắc Kạn</option>
+						<option>Bạc Liêu</option>
+						<option>Bắc Ninh</option>
+						<option>Bến Tre</option>
+						<option>Bình Định</option>
+						<option>Bình Dương</option>
+						<option>Bình Phước</option>
+						<option>Bình Thuận</option>
+						<option>Cà Mau</option>
+						<option>Cao Bằng</option>
+						<option>Đắk Lắk</option>
+						<option>Đắk Nông</option>
+						<option>Điện Biên</option>
+						<option>Đồng Nai</option>
+						<option>Đồng Tháp</option>
+						<option>Gia Lai</option>
+						<option>Hà Giang</option>
+						<option>Hà Nam</option>
+						<option>Hà Tĩnh</option>
+						<option>Hậu Giang</option>
+						<option>Hải Dương</option>
+						<option>Hòa Bình</option>
+						<option></option>
+						<option>Hưng Yên</option>
+						<option>Khánh Hòa</option>
+						<option>Kiên Giang</option>
+						<option>Kon Tum</option>
+						<option>Lai Châu</option>
+						<option>Lâm Đồng</option>
+						<option>Lạng Sơn</option>
+        				<option>Lào Cai</option>
+						<option>Long An</option>
+						<option>Nam Định</option>
+						<option>Nghệ An</option>
+						<option>Ninh Bình</option>
+						<option>Ninh Thuận</option>
+						<option>Phú Thọ</option>
+						<option>Quảng Bình</option>
+						<option>Quảng Nam</option>
+						<option>Quảng Ngãi</option>
+						<option>Quảng Ninh</option>
+						<option>Quảng Trị</option>
+						<option>Sóc Trăng</option>
+						<option>Sơn La</option>
+						<option>Tây Ninh</option>
+						<option>Thái Bình</option>
+						<option>Thái Nguyên</option>
+						<option>Thanh Hóa</option>
+						<option>Thừa Thiên Huế</option>
+						<option>Tiền Giang</option>
+						<option>Trà Vinh</option>
+						<option>Tuyên Quang</option>
+						<option>Vĩnh Long</option>
+						<option>Vĩnh Phúc</option>
+						<option>Yên Bái</option>
+						<option>Phú Yên</option>
+						<option>Cần Thơ</option>
+						<option>Đà Nẵng</option>
+						<option>Hải Phòng</option>
+						<option>Hà Nội</option>
+						<option>TP HCM</option>
+                   		</select>
+            </div>
+            </div>
+          <div class="row">
+            <input type="submit" value="Cập Nhật">
+          </div>
+          </form>
+
+    </div>
+  </div>
+{% endblock suadiachi%}

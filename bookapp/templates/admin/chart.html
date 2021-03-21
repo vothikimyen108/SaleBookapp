@@ -1,0 +1,209 @@
+{% extends 'admin/master.html' %}
+{% block head %}
+    {{ super() }}
+
+<style>
+  h1 {color:	#000}
+  .abc {
+  font-weight:bold;
+
+  }
+</style>
+<script src="{{ url_for('static', filename='js/chart.js') }}"></script>
+{% endblock %}
+{% block body %}
+         <div class=" d-flex justify-content-center abc">
+        <div class="border border-dark p-5 col-md-8">
+
+           <div class=" text-center">
+            <h1 class="card-title">
+                <h1 class="text-info"> THỐNG KÊ YUBOOK</h1>
+            </h1>
+            <form action="" method="POST" role="form" class="admin-form" enctype="multipart/form-data">
+               <p>Chọn tháng báo cáo:</p>
+          <select class="form-control" data-role="select2" id="khachhang" name="thang" required>
+                 <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+               <option value="7">7</option>
+                  <option value="8">8</option>
+               <option value="9">9</option>
+                  <option value="10">10</option>
+                 <option value="11">11</option>
+                  <option value="12">12</option>
+          </select>
+          <p>Chọn năm:</p>
+          <select class="form-control" data-role="select2" name="nam" required>
+                 <option value="2020">2020</option>
+                  <option value="2021">2021</option>
+                  <option value="2022">2022</option>
+                <option value="2023">2023</option>
+                  <option value="2024">2024</option>
+                  <option value="2025">2025</option>
+          </select>
+            <br>
+         <div class="form-group">
+                <input type="submit"
+                       value="Báo Cáo"
+                       class="btn btn-danger" />
+            </div>
+        </form>
+        <p>Báo cáo tồn kho dữ liệu bảng</p>
+                <table class="table table-hover table table-striped" id="myTable">
+            <tr class="thead-dark">
+                <th>Tháng</th>
+                <th>Tồn đầu</th>
+                <th>Phát sinh</th>
+                <th>Tồn Cuối</th>
+            </tr>
+            <tr>
+              <th scope="row">{{thang}}</th>
+              <td>{{tondau}}</td>
+              <td>{{phatsinh}}</td>
+              <td>{{toncuoi}}</td>
+            </tr>
+        </table>
+        </div>
+        <div class="card-body text-center">
+            <h1 class="card-title">
+                <h1 class="text-danger">Biểu đồ báo cáo tồn</h1>
+            </h1>
+        </div>
+<!-- bar chart canvas element -->
+<canvas id="myChart" width="600" height="400"></canvas>
+
+
+
+        <div class="card-body text-center">
+            <h1 class="card-title">
+                <h1 class="text-danger">Biểu đồ báo cáo công nợ</h1>
+            </h1>
+
+
+        <p>Báo cáo tồn kho dữ liệu bảng</p>
+                <table class="table table-hover table table-striped" id="myTable">
+            <tr class="thead-dark">
+                <th>Tháng</th>
+                <th>Tồn đầu</th>
+                <th>Phát sinh</th>
+                <th>Tồn Cuối</th>
+            </tr>
+            <tr>
+              <th scope="row">{{thang}}</th>
+              <td>{{tondauno}}</td>
+              <td>{{phatsinhno}}</td>
+              <td>{{toncuoino}}</td>
+            </tr>
+        </table>
+        </div>
+<canvas id="Chart" width="600" height="400"></canvas>
+
+
+
+</div>
+
+</div>
+
+
+<script>
+// Global parameters:
+// do not resize the chart canvas when its container does (keep at 600x400px)
+Chart.defaults.global.responsive = false;
+
+// define the chart data
+var chartData = {
+  labels : [{% for item in labels %}
+             "{{item}}",
+            {% endfor %}],
+  datasets : [{
+      label: '{{ legend }}',
+      fill: true,
+      lineTension: 0.1,
+      backgroundColor: "rgba(75,192,192,0.4)",
+      borderColor: "rgba(75,192,192,1)",
+      borderCapStyle: 'butt',
+      borderDash: [],
+      borderDashOffset: 0.0,
+      borderJoinStyle: 'miter',
+      pointBorderColor: "rgba(75,192,192,1)",
+      pointBackgroundColor: "#fff",
+      pointBorderWidth: 1,
+      pointHoverRadius: 5,
+      pointHoverBackgroundColor: "rgba(75,192,192,1)",
+      pointHoverBorderColor: "rgba(220,220,220,1)",
+      pointHoverBorderWidth: 2,
+      pointRadius: 1,
+      pointHitRadius: 10,
+      data : [{% for item in values %}
+                {{item}},
+              {% endfor %}],
+      spanGaps: false
+  }]
+}
+
+// get chart canvas
+var ctx = document.getElementById("myChart").getContext("2d");
+
+// create the chart using the chart canvas
+var myChart = new Chart(ctx, {
+  type: 'line',
+  data: chartData,
+});
+
+//bieudo2
+
+// Global parameters:
+// do not resize the chart canvas when its container does (keep at 600x400px)
+Chart.defaults.global.responsive = false;
+
+// define the chart data
+var chartData = {
+  labels : [{% for item in labels %}
+             "{{item}}",
+            {% endfor %}],
+  datasets : [{
+      label: '{{ legends }}',
+      fill: true,
+      lineTension: 0.1,
+      backgroundColor: "rgba(75,192,192,0.4)",
+      borderColor: "rgba(75,192,192,1)",
+      borderCapStyle: 'butt',
+      borderDash: [],
+      borderDashOffset: 0.0,
+      borderJoinStyle: 'miter',
+      pointBorderColor: "rgba(75,192,192,1)",
+      pointBackgroundColor: "#fff",
+      pointBorderWidth: 1,
+      pointHoverRadius: 5,
+      pointHoverBackgroundColor: "rgba(75,192,192,1)",
+      pointHoverBorderColor: "rgba(220,220,220,1)",
+      pointHoverBorderWidth: 2,
+      pointRadius: 1,
+      pointHitRadius: 10,
+      data : [{% for item in valuesno %}
+                {{item}},
+              {% endfor %}],
+      spanGaps: false
+  }]
+}
+
+// get chart canvas
+var ctx = document.getElementById("Chart").getContext("2d");
+
+// create the chart using the chart canvas
+var myChart = new Chart(ctx, {
+  type: 'line',
+  data: chartData,
+});
+
+
+
+
+
+
+
+</script>
+{% endblock %}

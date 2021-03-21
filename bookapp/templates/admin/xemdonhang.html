@@ -1,0 +1,68 @@
+{% extends 'admin/master.html' %}
+
+{% block body %}
+{% if err_msg %}
+    <div class="alert alert-danger">{{ err_msg }}</div>
+{% endif %}
+<div class="container-fluid">
+          <div class="container">
+        <div class="card-body text-center">
+            <h1 class="card-title">
+                 THÔNG TIN ĐƠN HÀNG YUBOOK
+                   <i class="fa fa-align-right"></i>
+            </h1>
+        </div>
+        <br>
+        <div class="input-group">
+        <input type="text" class="form-control" placeholder="Nhập từ khóa cần tìm"  id="myInput">
+        <div class="input-group-append">
+            <button class="btn btn-primary" type="button">
+                <i class="fa fa-search"></i>
+            </button>
+        </div>
+        </div>
+        <br>
+        <table class="table" id="myTable">
+            <tr>
+                <th>id</th>
+                <th>Ngày</th>
+                <th>Mã Nhân Viên</th>
+                <td>Mã Khách Hàng</td>
+                <td>Duyệt đơn hàng</td>
+                 <td>Xem chi tiết</td>
+            </tr>
+            {% for d in donhang %}
+            <tr>
+                <td>
+                    {{ d.id }}
+                </td>
+                <td>{{ d.ngaythd }}</td>
+                <td>
+                     {{ d.nv_id }}
+                </td>
+                <td>{{ d.kh_id }}</td>
+                {%if d.isduyetdh %}
+                <td>Đã Duyệt</td>
+                {%else%}
+                <td><a href="{{url_for('duyetdonhang_ad',id=d.id)}}">Chưa Duyệt</a></td>
+                {%endif%}
+                <td><a href="{{url_for('xemthongtinchitietad',dh_id=d.id) }}">Xem</a> </td>
+
+            </tr>
+            {% endfor %}
+        </table>
+</div>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+
+</script>
+{% endblock %}
+</div>

@@ -1,0 +1,335 @@
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Ghi No - YU BOOK</title>
+
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+
+        <link href="/admin/static/bootstrap/bootstrap4/swatch/default/bootstrap.min.css?v=4.2.1"
+              rel="stylesheet">
+
+        <link href="/admin/static/bootstrap/bootstrap4/css/bootstrap.min.css?v=4.2.1" rel="stylesheet">
+
+        <link href="/admin/static/admin/css/bootstrap4/admin.css?v=1.1.1" rel="stylesheet">
+        <link href="/admin/static/bootstrap/bootstrap4/css/font-awesome.min.css?v=4.7.0" rel="stylesheet">
+
+        <style>
+            .hide {
+                display: none;
+            }
+        </style>
+
+
+
+
+
+  <link href="/admin/static/vendor/select2/select2.css?v=4.2.1" rel="stylesheet">
+  <link href="/admin/static/vendor/select2/select2-bootstrap4.css?v=1.4.6" rel="stylesheet">
+  <link href="/admin/static/vendor/bootstrap-daterangepicker/daterangepicker-bs4.css?v=1.3.22" rel="stylesheet">
+
+
+
+
+
+
+  </head>
+<body>
+
+
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-2" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#admin-navbar-collapse"
+                    aria-controls="admin-navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- navbar content -->
+            <div class="collapse navbar-collapse" id="admin-navbar-collapse">
+
+                <a class="navbar-brand" href="/admin">YU BOOK</a>
+
+
+                <ul class="navbar-nav mr-auto">
+
+
+
+          <li>
+      <a class="nav-link" href="/admin/">
+        Home</a>
+      </li>
+        <li class="dropdown">
+      <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="javascript:void(0)">
+
+        Quản Lý Nhân Viên<i class="glyphicon glyphicon-chevron-down small"></i></a>
+      <ul class="dropdown-menu">
+
+            <li>
+                <a class="dropdown-item" href="/admin/xemnhanvien/">
+                  Xem thông tin nhân viên</a>
+            </li>
+
+            <li>
+                <a class="dropdown-item" href="/admin/themnhanvien/">
+                  thêm nhân viên</a>
+            </li>
+      </ul>
+      </li>
+
+
+          <li class="active dropdown">
+
+      <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="javascript:void(0)">
+
+        Quản Lý Bán Hàng<i class="glyphicon glyphicon-chevron-down small"></i></a>
+      <ul class="dropdown-menu">
+
+            <li>
+                <a class="dropdown-item " href="/admin/banhang/">
+                  Bán hàng</a>
+
+            </li>
+
+            <li>
+                <a class="dropdown-item" href="/admin/ghino/">
+                  Xem thông tin nợ</a>
+            </li>
+
+            <li>
+                <a class="dropdown-item " href="/admin/ghinoview/">
+                  Ghi nợ</a>
+            </li>
+
+            <li>
+                <a class="dropdown-item active" href="/admin/thutienno/">
+                  Thu nợ</a>
+            </li>
+
+            <li>
+                <a class="dropdown-item" href="/admin/xemthongtindonhang/">
+                  Xem thông tin đơn hàng</a>
+            </li>
+
+            <li>
+                <a class="dropdown-item" href="/admin/baocao/">
+                  Thống Kê</a>
+            </li>
+      </ul>
+      </li>
+
+        <li class="dropdown">
+      <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="javascript:void(0)">
+
+        Quản Lý Khách Hàng<i class="glyphicon glyphicon-chevron-down small"></i></a>
+      <ul class="dropdown-menu">
+
+            <li>
+                <a class="dropdown-item" href="/admin/xemkhachhang/">
+                  Xem thông tin khách hàng</a>
+            </li>
+      </ul>
+      </li>
+
+        <li class="dropdown">
+      <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="javascript:void(0)">
+
+        Quản Lý Sách<i class="glyphicon glyphicon-chevron-down small"></i></a>
+      <ul class="dropdown-menu">
+
+            <li>
+                <a class="dropdown-item" href="/admin/theloai/">
+                  Thể loại Sách</a>
+            </li>
+
+            <li>
+                <a class="dropdown-item" href="/admin/themsach/">
+                  Thêm sách mới</a>
+            </li>
+
+            <li>
+                <a class="dropdown-item" href="/admin/sach/">
+                  Xem sách</a>
+            </li>
+
+            <li>
+                <a class="dropdown-item" href="/admin/phieunhap/">
+                  Tạo phiếu nhập</a>
+            </li>
+
+            <li>
+                <a class="dropdown-item" href="/admin/chitheiphieunhap/">
+                  Nhập phiếu </a>
+            </li>
+
+            <li>
+                <a class="dropdown-item" href="/admin/xemchitietphieunhap/">
+                  Xem phiếu nhập </a>
+            </li>
+      </ul>
+      </li>
+
+        <li class="dropdown">
+      <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="javascript:void(0)">
+
+        Quy Định<i class="glyphicon glyphicon-chevron-down small"></i></a>
+      <ul class="dropdown-menu">
+
+            <li>
+                <a class="dropdown-item" href="/admin/xemquydinh/">
+                  Xem quy định</a>
+            </li>
+
+            <li>
+                <a class="dropdown-item" href="/admin/thaydoiquydinh/">
+                  Thay đổi quy định</a>
+            </li>
+      </ul>
+      </li>
+          <li>
+      <a class="nav-link" href="/admin/logoutview/">
+        Đăng xuất</a>
+      </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                </ul>
+      </div>
+        </nav>
+<!-- code-->
+<div class="container">
+  <div class="row justify-content-md-center">
+    <div class="col col-lg-6">
+              {% if err_msg %}
+    <div class="alert alert-danger">{{ err_msg }}</div>
+{% endif %}
+    <form action="" method="POST" role="form" class="admin-form" enctype="multipart/form-data">
+    <fieldset>
+  <div class="form-group ">
+              <div class="">
+            <br>
+            <h1 class="card-title">
+                 Tìm khách hàng nợ
+            </h1>
+            <div class="card-description">
+        </div>
+    <label for="khachhang" class="control-label" >Khách hàng
+          <strong style="color: red">&#42;</strong>
+    </label>
+      <select class="form-control" data-role="select2" id="khachhang" name="khachhang" required>
+          {% for dh in kh%}
+            {%for u in user%}
+                {% if u.id==dh.user_id%}
+                <option value="{{dh.id}}">Mã :{{dh.stt}} Tên: {{u.name}} </option>
+                {%endif%}
+            {%endfor%}
+          {%endfor%}
+      </select>
+  </div>
+
+    <hr>
+    <div class="form-group">
+      <div class="submit-row">
+     <input name="_add_another" type="submit" class="btn btn-danger" value="In Phiếu Thu Nợ" />
+      </div>
+    </div>
+  </div>
+    </fieldset>
+    </form>
+    </div>
+    <div class="col col-lg-6">
+
+            <div class="">
+            <br>
+            <h1 class="card-title">
+                 Phiếu Thu
+            </h1>
+            <div class="card-description">
+        </div>
+             <div class="form-group">
+                <label for="name">Họ Và Tên</label>
+                <input type="text"
+                       id="name"
+                       name="name"
+                       class="form-control " required readonly value="{{khachhangno.name}}"/>
+            </div>
+            <div class="form-group ">
+                <label for="email">Email</label>
+                <input type="email"
+                       id="email"
+                       name="email"
+                       class="form-control" required readonly value="{{khachhangno.email}}"/>
+            </div>
+                         <div class="form-group">
+                <label for="name">Số điện thoại</label>
+                <input type="text"
+
+                       name="sdt"
+                       class="form-control " required readonly value="{{khachhangno.sdt}}"/>
+            </div>
+            <div class="form-group ">
+                <label for="email">Địa Chỉ</label>
+                <input type="text"
+
+                       name="diachi"
+                       class="form-control" required readonly value="{{dc.sonha}},{{dc.phuongxa}},{{dc.quanhuyen}},{{dc.tinhtp}}"/>
+            </div>
+            <div class="form-group ">
+                <label for="email">Số tiền Thu</label>
+                <input type="text"
+
+                       name="sotienthu"
+                       class="form-control" required readonly value="{{phieuthu.tienno}}"/>
+            </div>
+            <div class="form-group ">
+                <label for="email">Ngày Thu</label>
+                <input type="text"
+
+                       name="sotienthu"
+                       class="form-control" required readonly value="{{today}}"/>
+            </div>
+            <div class="form-group ">
+                <label for="email">Ngày Nợ</label>
+                <input type="text"
+
+                       name="sotienthu"
+                       class="form-control" required readonly value="{{phieuthu.ngayno}}"/>
+             </div>
+
+
+    </div>
+
+    </div>
+
+  </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+<!--code js-->
+    <script src="/admin/static/vendor/jquery.min.js?v=2.1.4" type="text/javascript"></script>
+    <script src="/admin/static/bootstrap/bootstrap4/js/popper.min.js" type="text/javascript"></script>
+    <script src="/admin/static/bootstrap/bootstrap4/js/bootstrap.min.js?v=4.2.1"
+            type="text/javascript"></script>
+    <script src="/admin/static/vendor/moment.min.js?v=2.9.0" type="text/javascript"></script>
+    <script src="/admin/static/vendor/bootstrap4/util.js?v=4.3.1" type="text/javascript"></script>
+    <script src="/admin/static/vendor/bootstrap4/dropdown.js?v=4.3.1" type="text/javascript"></script>
+    <script src="/admin/static/vendor/select2/select2.min.js?v=4.2.1"
+            type="text/javascript"></script>
+    <script src="/admin/static/vendor/multi-level-dropdowns-bootstrap/bootstrap4-dropdown-ml-hack.js" type="text/javascript"></script>
+    <script src="/admin/static/admin/js/helpers.js?v=1.0.0" type="text/javascript"></script>
+  <script src="/admin/static/vendor/bootstrap-daterangepicker/daterangepicker.js?v=1.3.22"></script>
+
+  <script src="/admin/static/admin/js/form.js?v=1.0.1"></script>
+  </body>
+</html>

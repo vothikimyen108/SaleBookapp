@@ -1,0 +1,96 @@
+{% extends 'index.html' %}
+ {% block content %}
+   <div class="container">
+      <!-- Products Details -->
+      <section class="section product-details__section">
+        <div class="product-detail__container">
+          <div class="product-detail__left">
+            <div class="details__container--left">
+              <div class="product__pictures" style="visibility: hidden;">
+                <div class="pictures__container" >
+                  <img class="picture" src="{{ url_for('static', filename=sach_id.anh) }}" id="pic1" />
+                </div>
+                <div class="pictures__container">
+                  <img class="picture" src="{{ url_for('static', filename=sach_id.anh) }}" id="pic2" />
+                </div>
+                <div class="pictures__container">
+                  <img class="picture" src="{{ url_for('static', filename=sach_id.anh) }}eg" id="pic3" />
+                </div>
+                <div class="pictures__container">
+                  <img class="picture" src="{{ url_for('static', filename=sach_id.anh) }}" id="pic4" />
+                </div>
+                <div class="pictures__container">
+                  <img class="picture" src="{{ url_for('static', filename=sach_id.anh) }}" id="pic5" />
+                </div>
+              </div>
+              <div class="product__picture" id="product__picture">
+                <!-- <div class="rect" id="rect"></div> -->
+                <div class="picture__container">
+                  <img src="{{ url_for('static', filename=sach_id.anh) }}" id="pic" />
+                </div>
+              </div>
+              <div class="zoom" id="zoom"></div>
+            </div>
+
+            <div class="product-details__btn">
+              <a href=""><button type="submit" class="product__btn" onclick="themVaoGio({{sach_id.id }}, '{{ sach_id.name }}', {{ sach_id.gia }})">thêm vào giỏ hàng</button></a>
+             <a href="{{url_for('cart')}}"><button type="submit" class="product__btn" onclick="themVaoGio({{sach_id.id }}, '{{ sach_id.name }}', {{ sach_id.gia }})">Mua Ngay</button></a>
+            </div>
+          </div>
+          <div class="product-detail__right">
+            <div class="product-detail__content">
+              <h1 style="padding:10px;">{{sach_id.name}}</h1>
+              <div class="price">
+                <span class="new__price">{{ "{:,.1f}".format(sach_id.gia) }}</span>
+              </div>
+              <div class="product__info-container">
+                <ul class="product__info">
+                  <li>
+                    <span>Tác giả: </span>
+                    <a href="#" class="new__price">{{sach_id.tacgia}}</a>
+                  </li>
+                  <li>
+                    <span>Nhà suất bản:  </span>
+                    <a href="#">{{sach_id.nhaxb}}</a>
+                  </li>
+                  <li>
+                    <span>Nhà phát hành: </span>
+                    <a href="#">YU BOOK</a>
+                  </li>
+                  <li>
+                    <span>sẳn có: </span>
+                    <a href="#" class="in-stock">{{sach_id.soluong}}</a>
+                  </li>
+                  <li>
+                    <div class="input-counter">
+                      <span style="padding-right:10px">Số lượng: </span>
+                      <div>
+                        <span class="minus-btn"  id="decrease" onclick="decreaseValue()" value="Decrease Value">
+                            <i class="fas fa-minus"></i>
+                        </span>
+                        <input type="number" id="number" value="1" class="counter-btn">
+                        <span class="plus-btn"  id="increase" onclick="increaseValue()" value="Increase Value">
+                          <i class="fas fa-plus"></i>
+                        </span>
+                      </div>
+                    </div>
+                 </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="product-detail__bottom">
+          <div class="title__container tabs">
+            <div class="section__titles category__titles ">
+              <div class="section__title detail-btn active" data-id="description">
+                <span class="dot"></span>
+                <h1 class="primary__title">Mô Tả</h1>
+               </div>
+            </div>
+         </div>
+         <p>{{sach_id.mota}}</p>
+            </div>
+</section>
+</div>
+{%endblock content%}

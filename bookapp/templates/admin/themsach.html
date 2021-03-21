@@ -1,0 +1,86 @@
+{% extends 'admin/master.html' %}
+{% block head %}
+{% endblock %}
+{% block body %}
+        <div class="card-body text-center">
+            <h1 class="card-title">
+                 NHẬP SÁCH MỚI
+                <i class="fa fa-plus"></i>
+            </h1>
+        </div>
+         <div class=" d-flex justify-content-center abc">
+        <div class="border border-dark p-5 col-md-8">
+        <form method="post"
+              action=""
+              enctype="multipart/form-data" >
+                      {% if err_msg %}
+        <div class="alert alert-danger">{{ err_msg }}</div>
+        {% endif %}
+            <div class="form-group ">
+                <label for="name">Tên Sách</label>
+                <input type="text"
+                       id="name"
+                       name="name"
+                       class="form-control" required="required"/>
+            </div>
+            <div class="form-group">
+                <label for="email">Tên Tác Giả</label>
+                <input type="text"
+                       id="email"
+                       name="tacgia"
+                       class="form-control" required="required"/>
+            </div>
+            <div class="form-group">
+                <label for="username">Giá Bán</label>
+                <input type="number"
+                       id="username"
+                       name="gia"
+                       class="form-control" required="required" />
+            </div>
+            <div class="form-group">
+                <label>Mô Tả</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" name="mota" required="required"></textarea>
+            </div>
+            <div class="form-group">
+                <label >Nhà Xuất Bản</label>
+                <input type="text"
+                       name="nhaxb"
+                       class="form-control" required="required" />
+            </div>
+             <div class="form-group">
+                <label >Ngày Xuất Bản</label>
+                <input type="date"
+                       name="namxb"
+                       class="form-control" required="required"/>
+            </div>
+            <div class="form-group">
+                <label for="avatar">Ảnh</label>
+                <input type="file"
+                       id="avatar"
+                       name="anh"
+                       class="form-control" required="required" />
+            </div>
+            <div class="form-group">
+                <label >Số Lượng</label>
+                <input type="number"
+                       name="soluong"
+                       class="form-control" value="0" READONLY />
+            </div>
+              <div class="form-group">
+                <label for="exampleFormControlSelect1">Thể Loại</label>
+                <select class="form-control" id="exampleFormControlSelect1" name ="theloai">
+                {%for tl in theloai%}
+                  <option value="{{tl.name}}">{{tl.name}}</option>
+                {%endfor%}
+                </select>
+              </div>
+            <div class="form-group">
+                <input type="submit"
+                       value="Thêm Sách"
+                       class="btn btn-danger" />
+            </div>
+        </form>
+        </div>
+         </div>
+
+{% endblock %}

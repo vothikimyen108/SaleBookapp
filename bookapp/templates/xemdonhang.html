@@ -1,0 +1,27 @@
+{% extends 'profile.html' %}
+{% block suadiachi %}
+<div class="right" >
+    <div class="containerpr">
+        <table id="customers">
+          <tr>
+            <th>Mã đơn hàng</th>
+            <th>Ngày mua</th>
+            <th>Trạng thái</th>
+              <th>Xem chi Tiết</th>
+          </tr>
+           {% for dh in listdh %}
+          <tr>
+            <td>{{dh.id}}</td>
+            <td>{{dh.ngaythd}}</td>
+              {% if dh.isduyetdh == False %}
+                <td>Đã xác nhận</td>
+              {%else%}
+                 <td>Đã Vận chuyển</td>
+              {%endif%}
+              <td><a href="{{url_for('xemthongtinchitiet', dh_id=dh.id) }}">Click</a></td>
+          </tr>
+          {% endfor %}
+        </table>
+    </div>
+</div>
+{% endblock suadiachi%}

@@ -1,0 +1,192 @@
+{% extends 'admin/master.html' %}
+{% block head %}
+    {{ super() }}
+
+<style>
+  h1 {color:	#000}
+  .abc {
+  font-weight:bold;
+
+  }
+</style>
+{% endblock %}
+{% block body %}
+
+        <div class="text-center">
+            <br>
+            <h1 class="card-title">
+                 THÊM THÀNH VIÊN
+                <i class="fa fa-user-plus"></i>
+            </h1>
+            <div class="card-description">
+        </div>
+        </div>
+        {% if err_msg %}
+        <div class="alert alert-warning">
+            <h4>{{ err_msg }}</h4>
+        </div>
+        {% endif %}
+     <div class=" d-flex justify-content-center abc">
+        <div class="border border-dark p-5 col-md-8">
+        <form method="post"
+
+              enctype="multipart/form-data"  >
+            <div class="form-group">
+                <label for="name">Họ Và Tên</label>
+                <input type="text"
+                       id="name"
+                       name="name"
+                       class="form-control " required/>
+            </div>
+            <div class="form-group ">
+                <label for="email">Email</label>
+                <input type="email"
+                       id="email"
+                       name="email"
+                       class="form-control" required/>
+            </div>
+            <div class="form-row">
+             <div class="form-group col-md-4">
+                <label for="username">Username</label>
+                <input type="text"
+                       id="username"
+                       name="username"
+                       class="form-control" required />
+            </div>
+             <div class="form-group col-md-4">
+                <label for="password">Mật khẩu</label>
+                <input type="password"
+                       id="password"
+                       name="password"
+                       class="form-control" required />
+             </div>
+                <div class="form-group col-md-4">
+                <label for="confirm_password">Xác Nhận Mật Khẩu</label>
+                <input type="password"
+                       id="confirm_password"
+                       name="confirm-password"
+                       class="form-control" required />
+                 </div>
+            </div>
+              <div class="form-group">
+              <div class="form-row ">
+                <div class="form-group col-md-4">
+                  <label >Giới Tính</label>
+                  <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="gioitinh" required>
+                    <option value="nam">Nữ</option>
+                    <option value="nữ">Nam</option>
+                    <option value="khác">Khác</option>
+                  </select>
+             </div>
+             <div class="form-group col-md-4">
+                  <label >Ngày Sinh</label>
+                  <input type="date" class="form-control" name ="ngaysinh" required>
+             </div>
+
+                 <div class="form-group col-md-4">
+                  <label >CMND</label>
+                  <input type="number" class="form-control" name ="cmnd" required>
+             </div>
+          </div>
+              </div>
+               <div class="form-group ">
+                  <label >Số Điện Thoại</label>
+                  <input type="text" class="form-control" name ="sdt" required>
+             </div>
+              <div class="form-group">
+                <label for="inputAddress2">Số Nhà</label>
+                <input type="text" class="form-control" id="inputAddress2" placeholder="số 317, nguyễn kiệm" name ="sonha" required>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-4">
+                  <label >Phường/ Xã</label>
+                  <input type="text" class="form-control" name ="phuongxa" required>
+                </div>
+               <div class="form-group col-md-4">
+              <label >Quận Huyện</label>
+              <input type="text" class="form-control" name="quanhuyen" required>
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="inputState">Tỉnh thành phố</label>
+                  <select id="inputState" class="form-control" name="tinhtp" required>
+                                            <option>An Giang</option>
+						<option>Bà Rịa - Vũng Tàu</option>
+						<option>Bắc Giang</option>
+						<option>Bắc Kạn</option>
+						<option>Bạc Liêu</option>
+						<option>Bắc Ninh</option>
+						<option>Bến Tre</option>
+						<option>Bình Định</option>
+						<option>Bình Dương</option>
+						<option>Bình Phước</option>
+						<option>Bình Thuận</option>
+						<option>Cà Mau</option>
+						<option>Cao Bằng</option>
+						<option>Đắk Lắk</option>
+						<option>Đắk Nông</option>
+						<option>Điện Biên</option>
+						<option>Đồng Nai</option>
+						<option>Đồng Tháp</option>
+						<option>Gia Lai</option>
+						<option>Hà Giang</option>
+						<option>Hà Nam</option>
+						<option>Hà Tĩnh</option>
+						<option>Hậu Giang</option>
+						<option>Hải Dương</option>
+						<option>Hòa Bình</option>
+						<option></option>
+						<option>Hưng Yên</option>
+						<option>Khánh Hòa</option>
+						<option>Kiên Giang</option>
+						<option>Kon Tum</option>
+						<option>Lai Châu</option>
+						<option>Lâm Đồng</option>
+						<option>Lạng Sơn</option>
+        				<option>Lào Cai</option>
+						<option>Long An</option>
+						<option>Nam Định</option>
+						<option>Nghệ An</option>
+						<option>Ninh Bình</option>
+						<option>Ninh Thuận</option>
+						<option>Phú Thọ</option>
+						<option>Quảng Bình</option>
+						<option>Quảng Nam</option>
+						<option>Quảng Ngãi</option>
+						<option>Quảng Ninh</option>
+						<option>Quảng Trị</option>
+						<option>Sóc Trăng</option>
+						<option>Sơn La</option>
+						<option>Tây Ninh</option>
+						<option>Thái Bình</option>
+						<option>Thái Nguyên</option>
+						<option>Thanh Hóa</option>
+						<option>Thừa Thiên Huế</option>
+						<option>Tiền Giang</option>
+						<option>Trà Vinh</option>
+						<option>Tuyên Quang</option>
+						<option>Vĩnh Long</option>
+						<option>Vĩnh Phúc</option>
+						<option>Yên Bái</option>
+						<option>Phú Yên</option>
+						<option>Cần Thơ</option>
+						<option>Đà Nẵng</option>
+						<option>Hải Phòng</option>
+						<option>Hà Nội</option>
+						<option>TP HCM</option>
+                  </select>
+                </div>
+
+            <div class="container">
+              <div class="row">
+                <div class="col text-center">
+                             <br>
+                  <button class="btn btn-danger">Thêm Nhân Viên</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+
+    </div>
+     </div>
+{% endblock %}

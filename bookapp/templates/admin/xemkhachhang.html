@@ -1,0 +1,78 @@
+{% extends 'admin/master.html' %}
+{% block head %}
+    {{ super() }}
+
+<style>
+  h1 {color:	#000}
+</style>
+{% endblock %}
+
+
+{% block body %}
+{% if err_msg %}
+    <div class="alert alert-danger">{{ err_msg }}</div>
+{% endif %}
+<div class="container-fluid">
+          <div class="container">
+        <div class="card-body text-center">
+            <h1 class="card-title">
+                 KHÁCH HÀNG YU BOOK
+                   <i class="fa fa-users"></i>
+
+            </h1>
+            <div class="card-description">
+
+         <div class="abc"><a href="{{url_for('register')}}">Tạo khách hàng mới</a></div>
+            <br>
+        </div>
+        <div>
+                <div class="input-group">
+                <input type="text" class="form-control" placeholder="Nhập từ khóa cần tìm"  id="myInput">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="button">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+            <br>
+        <table class="table table-hover table table-striped" id="myTable">
+            <tr class="thead-dark">
+                <th>Mã khách hàng</th>
+                <th>Họ Và Tên</th>
+                <th>Giới Tính</th>
+                <th>Ngày Sinh</th>
+                <th>Số điện thoại</th>
+            </tr>
+            {% for u in user %}
+            <tr>
+                {%for k in kh%}
+                {%if k.user_id == u.id%}
+                <td>
+                    {{ k.id }}
+                </td>
+                {%endif%}
+                {%endfor%}
+                <td>{{ u.name }}</td>
+                <td>
+                     {{ u.gioitinh}}
+                </td>
+                <td>{{ u.ngaysinh }}</td>
+                <td>{{ u.sdt }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+</div>
+</div></div>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
+{% endblock %}
